@@ -1,0 +1,2 @@
+# BiOfflineClockTimer
+This is an offline clock timer for games made with Cocos2d-x but it can be used with other frameworks with small modifications (I placed comments where the code needs to be modified). For example, you could use this for games that have lives and you must wait a specific time until the lives refill (like Candy Crush or most match 3 games). If you close the app, the clock will calculate the difference and continue where you should be. 
