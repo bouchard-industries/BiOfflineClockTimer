@@ -9,29 +9,4 @@ closed. Cocos2d-x specific code will be marked.
 
 
 
-# Cocos2d-x Example
 
-// create clock 	
-
-time_t now = time(0);
-int timeNowInt = now;
-
-int secondsTillLoop = 60;
-int clockId = 1;
-int loopAmounts = 5;
-
-m_clock = new BiOfflineClockTimer(timeNowInt, secondsTillLoop, clockId, loopAmounts);
-
-// Losing a life. Send signal.
-
-EventCustom event("Event_Custom_Life_Lost");
-_eventDispatcher->dispatchEvent(&event);
-
-// Listen to that signal
-EventListenerCustom* _listenerLifeLost = EventListenerCustom::create("Event_Custom_Life_Lost", [=](EventCustom* event) {
-	if (!m_clock->IsClockTicking())
-	{
-		m_clock->StartClock(false);
-	}
-});
-_eventDispatcher->addEventListenerWithFixedPriority(_listenerGameOver, 1);
