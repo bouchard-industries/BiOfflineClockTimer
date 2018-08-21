@@ -1,0 +1,74 @@
+# Cocos2d-x Example
+
+
+
+
+// create clock 	
+
+
+
+
+time_t now = time(0);
+
+
+int timeNowInt = now;
+
+
+
+
+int secondsTillLoop = 60;
+
+
+int clockId = 1;
+
+
+int loopAmounts = 5;
+
+
+
+
+
+m_clock = new BiOfflineClockTimer(timeNowInt, secondsTillLoop, clockId, loopAmounts);
+
+
+
+
+// Losing a life. Send signal.
+
+
+
+
+EventCustom event("Event_Custom_Life_Lost");
+
+
+_eventDispatcher->dispatchEvent(&event);
+
+
+
+
+
+// Listen to that signal
+
+
+
+EventListenerCustom* _listenerLifeLost = EventListenerCustom::create("Event_Custom_Life_Lost", [=](EventCustom* event) {
+	
+
+    if (!m_clock->IsClockTicking())
+	
+    {
+		
+        m_clock->StartClock(false);
+	
+    }
+
+
+});
+_eventDispatcher->addEventListenerWithFixedPriority(_listenerGameOver, 1);
+
+
+// The clock will now start counting down. If you send that signal again, the loop amount will increment.
+
+
+// Note: You should listen to EVENT_CUSTOM_CLOCK_LOOPED and check if you have the max amount of lives, if so
+// then do m_clock->StopClock(true);
