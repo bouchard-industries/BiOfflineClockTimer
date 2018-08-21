@@ -24,7 +24,7 @@
 class BiOfflineClockTimer : public Node // Cocos2d-x code. Inherit from Node so this object can be added to the Scene Graph so the clock label can be visible.
 {
 public:
-	BiOfflineClockTimer(int currentEpochTime, int MaxEpochTime, int clockId, int amountOfLoops);
+    BiOfflineClockTimer(int currentEpochTime, int MaxEpochTime, int clockId, int amountOfLoops);
 	~BiOfflineClockTimer();
 	void StartClock(bool bLoadSaveTime);
 	void StopClock(bool bClearSaveTime);
