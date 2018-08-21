@@ -8,5 +8,4 @@ many purpose. It can be used for other applications if you need a timer that nee
 closed. Cocos2d-x specific code will be marked.
 
 
-
-
+If you would like to see this in action, go to the Apple app store or Google play store and search for Munchie Match. Download the game and once you are in the level selection screen you will see lives at the top right. If you play the game and lose notice the change in lives and time counting down. Try closing the app and launching again after some time. You will notice the difference. 
