@@ -1,74 +1,77 @@
+// Copyright 2018 Bouchard Industries Corp
+//
+// Created by Eric Bouchard on 2018-08-21.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http ://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" 
+// BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing 
+// permissions and limitations under the License.
+//
+//
+// BiOfflineClockTimer
+//
+// Created by Eric Bouchard on 2018-04-14.
+// Description: Lets you create a decrementing clock that can loop as many times as you want, even while the application is closed. You can have multiple clocks
+// with m_clockId.
+
 # Cocos2d-x Example
 
-
-
-
-// create clock 	
-
-
-
+// create clock
 
 time_t now = time(0);
-
-
 int timeNowInt = now;
 
-
-
-
 int secondsTillLoop = 60;
-
-
 int clockId = 1;
-
-
 int loopAmounts = 5;
-
-
-
-
 
 m_clock = new BiOfflineClockTimer(timeNowInt, secondsTillLoop, clockId, loopAmounts);
 
-
-
-
 // Losing a life. Send signal.
 
-
-
-
 EventCustom event("Event_Custom_Life_Lost");
-
-
 _eventDispatcher->dispatchEvent(&event);
-
-
-
-
 
 // Listen to that signal
 
-
-
 EventListenerCustom* _listenerLifeLost = EventListenerCustom::create("Event_Custom_Life_Lost", [=](EventCustom* event) {
-	
+
+    int lives = pUserDefault->getIntegerForKey("lives") - 1;
+    pUserDefault->setIntegerForKey("lives", lives);
+    pUserDefault->flush();
 
     if (!m_clock->IsClockTicking())
-	
     {
-		
         m_clock->StartClock(false);
-	
     }
-
-
 });
 _eventDispatcher->addEventListenerWithFixedPriority(_listenerGameOver, 1);
 
-
 // The clock will now start counting down. If you send that signal again, the loop amount will increment.
 
-
-// Note: You should listen to EVENT_CUSTOM_CLOCK_LOOPED and check if you have the max amount of lives, if so
+// You should listen to EVENT_CUSTOM_CLOCK_LOOPED and check if you have the max amount of lives, if so
 // then do m_clock->StopClock(true);
+
+EventListenerCustom* _listnerClockFinished = EventListenerCustom::create(EVENT_CUSTOM_CLOCK_LOOPED, [=](EventCustom* event) {
+
+    int maxLives = 5;
+    int lives = pUserDefault->getIntegerForKey("lives");
+    if (lives < maxLives)
+    {
+	lives++;
+	pUserDefault->setIntegerForKey("lives", lives);
+	pUserDefault->flush();
+    }
+
+    if (lives == 5)
+    {
+        m_clock->StopClock(true);
+    }
+});
+_eventDispatcher->addEventListenerWithFixedPriority(_listnerClockFinished, 1);
+
+// Note: The clock will only tick if its on a running scene. But it will update accordingly once you return to the scene. You can pass the object
+// to the next scene or you could just have a signal that ticks the clock once, that would update the amount of loops, the timer and the lives.
+// To tick once: m_clock->ClockTick(1);
