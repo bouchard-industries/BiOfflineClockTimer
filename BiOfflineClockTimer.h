@@ -25,25 +25,25 @@ class BiOfflineClockTimer : public Node // Cocos2d-x code. Inherit from Node so 
 {
 public:
     BiOfflineClockTimer(int currentEpochTime, int MaxEpochTime, int clockId, int amountOfLoops);
-	~BiOfflineClockTimer();
-	void StartClock(bool bLoadSaveTime);
-	void StopClock(bool bClearSaveTime);
-	void ClockTick(float dt);
-	bool IsClockTicking();
+    ~BiOfflineClockTimer();
+    void StartClock(bool bLoadSaveTime);
+    void StopClock(bool bClearSaveTime);
+    void ClockTick(float dt);
+    bool IsClockTicking();
 private:
-	void UpdateLabel();
-	void ResetClock(int clockHour, int clockMinute, int clockSecond);
-	int GetEpochTimeLeft();
-	int GetMaxEpochTime();
-	std::string ToString(int value);
-	int m_clockId;
-	int m_clockEpochTime;
-	int m_clockHours;
-	int m_clockMinutes;
-	int m_clockSeconds;
-	Label *m_clockLabel;
-	int m_maxEpochTime;
-	int m_amountOfLoops;
+    void UpdateLabel();
+    void ResetClock(int clockHour, int clockMinute, int clockSecond);
+    int GetEpochTimeLeft();
+    int GetMaxEpochTime();
+    std::string ToString(int value);
+    int m_clockId;
+    int m_clockEpochTime;
+    int m_clockHours;
+    int m_clockMinutes;
+    int m_clockSeconds;
+    Label *m_clockLabel;
+    int m_maxEpochTime;
+    int m_amountOfLoops;
 };
 
 #endif // __BI_OFFLINE_CLOCK_TIMER_H__ 
