@@ -46,4 +46,4 @@ private:
 	int m_amountOfLoops;
 };
 
-#endif // __BI_OFFLINE_CLOCK_TIMER_H__
+#endif // __BI_OFFLINE_CLOCK_TIMER_H__ 
